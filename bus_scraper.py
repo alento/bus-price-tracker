@@ -33,7 +33,7 @@ try:
             try:
                 session.headers.update(headers)
                 response = session.get(url, params=params, timeout=10)
-                print(response.text[:500]
+                print(response.text[:500])
                 # Detect if API breaks silently
                # if "<!DOCTYPE html>" in response.text:
                #     raise Exception("Blocked (HTML response)")
