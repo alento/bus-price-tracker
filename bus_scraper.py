@@ -14,7 +14,7 @@ try:
         'journeyDate': '2026-07-09',
         'fromCityName': 'Bangalore',
         'toCityName': 'Thiruvananthapuram',
-        '_rsc': 'gocxn',   # keep this (important)
+        # '_rsc': 'gocxn',   # keep this (important)
     }    
     headers = {
         'User-Agent': 'Mozilla/5.0',
@@ -24,6 +24,7 @@ try:
         'next-url': '/bus',
     }
     # Adding Warm-up requests
+    session.get("https://www.cleartrip.com/", timeout=10)
     session.get("https://www.cleartrip.com/bus", timeout=10)
     
     # Creating Retry logic function for reliability    
@@ -32,12 +33,12 @@ try:
             try:
                 session.headers.update(headers)
                 response = session.get(url, params=params, timeout=10)
-                
+                print(response.text[:500]
                 # Detect if API breaks silently
-                if "<!DOCTYPE html>" in response.text:
-                    raise Exception("Blocked (HTML response)")
-                if '"response":' not in response.text:
-                    raise Exception("Invalid response structure")
+               # if "<!DOCTYPE html>" in response.text:
+               #     raise Exception("Blocked (HTML response)")
+              #  if '"response":' not in response.text:
+              #      raise Exception("Invalid response structure")
                 return response.text
             except Exception as e:
                 print(f"⚠️ Attempt {attempt+1} failed: {e}")
